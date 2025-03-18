@@ -20,6 +20,7 @@ steps:
 
 
 - task: TerraformTaskV4@4
+  displayName: 'Terraform - Version'
   inputs:
     provider: 'azurerm'
     command: 'custom'
@@ -30,6 +31,7 @@ steps:
 
 
 - task: TerraformTaskV4@4
+  displayName: 'Terraform Intialization'
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -39,12 +41,28 @@ steps:
     backendAzureRmContainerName: 'blob'
     backendAzureRmKey: 'terraform.tfstate'
 
- - task: TerraformTaskV4@4
-   inputs:
-     provider: 'azurerm'
-     command: 'validate'
+- task: DownloadSecureFile@1
+  displayName: 'Download private key'
+  inputs:
+    secureFile: 'id_rsa'
+
+- task: DownloadSecureFile@1
+  displayName: 'Download Public key'
+  inputs:
+    secureFile: 'id_rsa.pub'
+
+- script: 
+  mkdir -p ~/.ssh
+  cp $
 
 - task: TerraformTaskV4@4
+  displayName: 'Terraform Validate'
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -52,6 +70,7 @@ steps:
     environmentServiceNameAzureRM: 'terraform'
 
 - task: TerraformTaskV4@4
+  displayName: 'Terraform Apply'
   inputs:
     provider: 'azurerm'
     command: 'apply'
