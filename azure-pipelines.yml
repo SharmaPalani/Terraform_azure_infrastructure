@@ -51,13 +51,14 @@ steps:
   inputs:
     secureFile: 'id_rsa.pub'
 
-- script: 
+- script: |
     mkdir -p ~/.ssh
-    cp $(Agent.TempDirectory)/id_rsa.pub ~/.ssh/id_rsa.pub
-    cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
+    [ -f ~/.ssh/id_rsa.pub ] || cp /home/vsts/work/_temp/id_rsa.pub ~/.ssh/id_rsa.pub
+    [ -f ~/.ssh/id_rsa ] || cp /home/vsts/work/_temp/id_rsa ~/.ssh/id_rsa
     chmod 640 ~/.ssh/id_rsa.pub
     chmod 600 ~/.ssh/id_rsa
-  displayName: 'setup sshkey'
+  displayName: 'Setup SSH Keys'
+
 
 - task: TerraformTaskV4@4
   displayName: 'Terraform Validate'
