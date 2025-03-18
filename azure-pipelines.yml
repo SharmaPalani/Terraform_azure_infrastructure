@@ -17,3 +17,43 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'custom'
+    commandOptions: 'version'
+    outputTo: 'console'
+    customCommand: 'version'
+    environmentServiceNameAzureRM: 'terraform'
+
+
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'terraform'
+    backendAzureRmResourceGroupName: 'Devopsrg'
+    backendAzureRmStorageAccountName: 'terraforminfradfevops'
+    backendAzureRmContainerName: 'blob'
+    backendAzureRmKey: 'terraform.tfstate'
+
+ - task: TerraformTaskV4@4
+   inputs:
+     provider: 'azurerm'
+     command: 'validate'
+
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    commandOptions: '-out=tfplan'
+    environmentServiceNameAzureRM: 'terraform'
+
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    commandOptions: '-auto-approve tfplan'
+    environmentServiceNameAzureRM: 'terraform'
