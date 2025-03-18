@@ -119,5 +119,15 @@ resource "azurerm_linux_virtual_machine" "VM" {
       private_key = file("~/.ssh/id_rsa")
     }
     }
+      provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      host        =  azurerm_public_ip.PublicIP.ip_address
+      user        = "azureuser"
+      private_key = file("~/.ssh/id_rsa")
+    }
+    inline = ["sudo chmod +x /tmp/apache-install.sh", 
+    "sudo /tmp/apache-install.sh"]
+  }
 
 }
