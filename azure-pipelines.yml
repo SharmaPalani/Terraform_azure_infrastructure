@@ -67,7 +67,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'validate'
-- script: 
+- script: |
     echo "Current Directory:"
     pwd
     echo "List Files in /tmp/"
