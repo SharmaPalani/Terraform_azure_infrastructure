@@ -66,6 +66,10 @@ steps:
     provider: 'azurerm'
     command: 'validate'
 
+- script: terraform plan -lock=false -out=tfplan
+  displayName: "Terraform Plan Without Lock"
+
+
 - task: TerraformTaskV4@4
   displayName: 'Terraform Plan'
   inputs:
