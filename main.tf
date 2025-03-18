@@ -119,7 +119,7 @@ resource "null_resource" "copy_file_azure" {
       type        = "ssh"
       host        = azurerm_public_ip.PublicIP.ip_address
       user        = "azureuser"
-      private_key = file("~/.ssh/id_rsa.pub")
+      public_key = file("~/.ssh/id_rsa.pub")
     }
   }
   provisioner "remote-exec" {
@@ -127,7 +127,7 @@ resource "null_resource" "copy_file_azure" {
       type        = "ssh"
       host        =  azurerm_public_ip.PublicIP.ip_address
       user        = "azureuser"
-      private_key = file("~/.ssh/id_rsa.pub")
+      public_key = file("~/.ssh/id_rsa.pub")
     }
     inline = ["sudo chmod +x /tmp/apache-install.sh", 
     "sudo /tmp/apche-install.sh"]
