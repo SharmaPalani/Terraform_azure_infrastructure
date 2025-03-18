@@ -67,11 +67,9 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'validate'
-
-
 - script: 
     echo "Ensure apache-install is available"
-    ls -l
+    ls
   displayName: 'check apache install script'
 
 
