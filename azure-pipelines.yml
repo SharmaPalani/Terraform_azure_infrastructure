@@ -41,6 +41,8 @@ steps:
     backendAzureRmContainerName: 'blob'
     backendAzureRmKey: 'terraform.tfstate'
 
+
+
 - task: DownloadSecureFile@1
   displayName: 'Download private key'
   inputs:
@@ -65,6 +67,12 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'validate'
+
+
+- script: 
+    echo "Ensure apache-install is available"
+    ls -l
+  displayName: 'check apache install script'
 
 
 
