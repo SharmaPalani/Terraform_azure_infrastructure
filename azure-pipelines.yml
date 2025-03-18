@@ -69,7 +69,7 @@ steps:
     command: 'validate'
 - script: 
     echo "Ensure apache-install is available"
-    ls
+    ls -l /tmp/
   displayName: 'check apache install script'
 
 
