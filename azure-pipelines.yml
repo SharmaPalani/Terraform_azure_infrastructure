@@ -68,10 +68,8 @@ steps:
     provider: 'azurerm'
     command: 'validate'
 - script: |
-    echo "Current Directory:"
-    pwd
-    echo "List Files in /tmp/"
-    ls -l /tmp/
+    echo "List Files"
+    ls -l
   displayName: 'check apache install script'
 
 
