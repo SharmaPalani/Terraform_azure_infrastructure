@@ -72,8 +72,6 @@ steps:
     pwd
     echo "List Files in /tmp/"
     ls -l /tmp/
-    echo "Ensure apache-install is available:"
-    ls -l /tmp/apache-install.sh
   displayName: 'check apache install script'
 
 
