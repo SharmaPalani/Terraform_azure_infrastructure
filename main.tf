@@ -109,9 +109,6 @@ resource "azurerm_linux_virtual_machine" "VM" {
   provisioner "local-exec" {
     command = "echo ${ azurerm_linux_virtual_machine.VM.public_ip_address } > public_ip.txt"
   }
-
-}
-resource "null_resource" "copy_file_azure" {
   provisioner "file" {
     source      = "apache-install.sh"
     destination = "/tmp/apache-install.sh"
@@ -122,7 +119,7 @@ resource "null_resource" "copy_file_azure" {
       private_key = file("~/.ssh/id_rsa")
     }
   }
-  provisioner "remote-exec" {
+ provisioner "remote-exec" {
     connection {
       type        = "ssh"
       host        =  azurerm_public_ip.PublicIP.ip_address
@@ -132,7 +129,6 @@ resource "null_resource" "copy_file_azure" {
     inline = ["sudo chmod +x /tmp/apache-install.sh", 
     "sudo /tmp/apache-install.sh"]
   }
-  depends_on = [azurerm_linux_virtual_machine.VM]
-
 }
+
 
